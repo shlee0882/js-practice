@@ -1,0 +1,14 @@
+
+
+
+.mouse-clicked {
+    color: blue;
+}
+
+.mouse-entered {
+    color: pink;
+}
+
+.mouse-out {
+    color: red;
+}
