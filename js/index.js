@@ -44,7 +44,7 @@ function goodToDo(event){
             a.value = btn.value;
         }
     });
-    
+
     console.log(btn);
     btn.innerText = "";
     btn.innerText = "👍"+btn.value; 
@@ -103,12 +103,40 @@ function loadList(){
     }
 }
 
+function useAjax(){
+    $.ajax({
+        type: "GET",
+        crossDomain: true,
+        dataType: 'json',
+        url : 'http://13.124.203.134/burgers',
+        success : function(result) {
+            console.log("성공", result);
+        },
+        error : function(error) {
+            console.log("에러", error);
+        }
+    });
+}
+
+function useFetch(){
+    fetch(`http://13.124.203.134/burgers`
+    ).then(function(response){
+        return response.json();
+    })
+    .then(function(json){
+        console.log(json);
+    });
+}
+
+
 function init(){
   window.addEventListener("click", myListner1);
   h1_id.addEventListener("mouseenter", myListner2);
 
   loadList();
   form_id.addEventListener("submit", submitListner);
+  useAjax();
+  useFetch();
 }
 
 init();
