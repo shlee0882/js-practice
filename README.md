@@ -60,3 +60,42 @@ init();
 // 자바스크립트 함수형 프로그래밍(down to top) 
 // init() -> submitListner(event) -> drawSomething(text) -> saveObject()
 ```
+
+### ajax, fetch 방식
+```js
+
+// ajax 사용
+function useAjax(){
+    $.ajax({
+        type: "GET",
+        crossDomain: true,
+        dataType: 'json',
+        url : 'http://13.124.203.134/burgers',
+        success : function(result) {
+            console.log("성공", result);
+        },
+        error : function(error) {
+            console.log("에러", error);
+        }
+    });
+}
+// fetch 사용
+function useFetch(){
+    fetch(`http://13.124.203.134/burgers`
+    ).then(function(response){
+        return response.json();
+    })
+    .then(function(json){
+        console.log(json);
+    });
+}
+
+
+function init(){
+  useAjax();
+  useFetch();
+}
+
+init();
+// 두 방식 모두 결과 같음.
+```
