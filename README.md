@@ -3,7 +3,7 @@
 - const, let, local storage를 활용해 함수형 자바스크립트 구조로 생성
 - js를 활용해 dom구조를 생성 변경할때
 
-### 예전방식
+### 마크업 방식1
 
 ```js
 var markUp += "<li>";
@@ -13,7 +13,7 @@ var markUp += "<li>";
 $("#ul_id").append(markUp);
 ```
 
-### 바꾼방식
+### 마크업 방식2
 
 ```js
 const ul_id = document.querySelector("#ul_id");
