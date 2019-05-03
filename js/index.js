@@ -1,14 +1,17 @@
 const h1_id = document.querySelector("#h1_id");
 const div_class = document.querySelector(".div_class");
+const form_id = document.querySelector("#form_id");
+const form_input = form_id.querySelector("input");
+const ul_id = document.querySelector("#ul_id");
 
-console.log(h1_id);
-console.dir(h1_id);
+const LOCAL_STORAGE = "local_storage";
 
 const MOUSE_CLICKED_CLASS = "mouse-clicked";
 const MOUSE_ENTERED_CLASS = "mouse-entered";
 const MOUSE_OUT_CLASS = "mouse-out";
 
 let myArray = [];
+let myObjArray = [];
 
 function myListner1(){
     const hasClass1 = h1_id.classList.contains(MOUSE_CLICKED_CLASS);
@@ -22,30 +25,90 @@ function myListner1(){
     }else{
         h1_id.classList.add(MOUSE_CLICKED_CLASS);
     }
-
-    const li = document.createElement("li");
-    const button = document.createElement("button");
-    const newId = myArray.length + 1;
-    button.innerText = "👍";
-    button.className = "button_class";
-    const span = document.createElement("span");
-    li.appendChild(span);
-    li.appendChild(button);
-    div_class.appendChild(li);
-
-
 }
 
 function myListner2(){
     h1_id.classList.toggle(MOUSE_ENTERED_CLASS);
 }
 
+function saveObject(){
+    localStorage.setItem(LOCAL_STORAGE, JSON.stringify(myObjArray))
+}
 
+function goodToDo(event){
+    const btn = event.target;
+    btn.value = parseInt(btn.value)+1;
+
+    myObjArray.forEach(function(a){
+        if(a.id === btn.id){
+            a.value = btn.value;
+        }
+    });
+    
+    console.log(btn);
+    btn.innerText = "";
+    btn.innerText = "👍"+btn.value; 
+    console.log(myObjArray);
+    saveObject();
+}
+
+function drawSomething(text, value){
+    
+    const li = document.createElement("li");
+    const goodBtn = document.createElement("button");
+    
+    const myId = myObjArray.length + 1;
+
+    goodBtn.innerText = "👍";
+    if(value != 0){
+        goodBtn.innerText += value;
+    }
+    goodBtn.id = `btn${myId}`;
+    goodBtn.value = value;
+
+    goodBtn.addEventListener("click", goodToDo);
+
+    const span = document.createElement("span");
+    span.innerText = text;
+    li.appendChild(goodBtn);
+    li.appendChild(span);
+    
+    li.id = myId;
+
+    ul_id.appendChild(li);
+    const myObj = {
+        text: text,
+        value : goodBtn.value,
+        id: goodBtn.id
+    }
+    myObjArray.push(myObj);
+    saveObject();
+}
+
+function submitListner(event){
+    event.preventDefault();
+    const currentValue = form_input.value;
+    const value = 0;
+    drawSomething(currentValue, value);
+    form_input.value = "";
+};
+
+function loadList(){
+    const loaded = localStorage.getItem(LOCAL_STORAGE);
+    if(loaded !== null){  
+      const parseLoaded = JSON.parse(loaded);
+      parseLoaded.forEach(function(a){
+        drawSomething(a.text, a.value)
+      });
+    }
+}
 
 function init(){
   window.addEventListener("click", myListner1);
   h1_id.addEventListener("mouseenter", myListner2);
-  
+
+  loadList();
+  form_id.addEventListener("submit", submitListner);
 }
 
 init();
