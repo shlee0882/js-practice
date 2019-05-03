@@ -135,7 +135,7 @@ function init(){
 
   loadList();
   form_id.addEventListener("submit", submitListner);
-//   useAjax();s
+//   useAjax();
 //   useFetch();
 }
 
