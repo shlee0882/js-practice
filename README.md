@@ -79,6 +79,7 @@ function useAjax(){
         }
     });
 }
+
 // fetch 사용
 function useFetch(){
     fetch(`http://13.124.203.134/burgers`
@@ -89,7 +90,6 @@ function useFetch(){
         console.log(json);
     });
 }
-
 
 function init(){
   useAjax();
