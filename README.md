@@ -99,3 +99,6 @@ function init(){
 init();
 // 두 방식 모두 결과 같음.
 ```
+
+배포된 url :    
+https://shlee0882.github.io/js-practice/
